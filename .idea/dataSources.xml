@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="jdbc:mysql://192.168.205.128:3306/tensquare_base? characterEncoding=utf‐8" uuid="6ea45637-c300-4771-a856-59f1181fcb58">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://192.168.205.128:3306/tensquare_base? characterEncoding=utf‐8</jdbc-url>
+    </data-source>
+  </component>
+</project>
