@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://192.168.205.128:3306/tensquare_base? characterEncoding=utf‐8</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="tensquare_recruit@192.168.205.128" uuid="23910cd0-bd5f-4388-b668-3de2ea179b98">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://192.168.205.128:3306/tensquare_recruit?charaterEncoding=utf-8</jdbc-url>
+    </data-source>
   </component>
 </project>
