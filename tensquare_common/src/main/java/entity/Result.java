@@ -5,7 +5,7 @@ package entity;
  * <p>Compiler:fan
  * <p>版本:xxxxxxxxxx
  * <p>文件名：entity.Result.java
- * <p>作者: miyf1
+ * <p>作者: miyf
  * <p>创建时间: 2020年09月17日 10:34
  * <p>负责人:fan
  * <p>修改者： fan

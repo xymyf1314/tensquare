@@ -10,7 +10,7 @@ import util.IdWorker;
  * <p>Compiler:fan
  * <p>版本:xxxxxxxxxx
  * <p>文件名：com.tensquare.base.BaseApplication.java
- * <p>作者: miyf1
+ * <p>作者: miyf
  * <p>创建时间: 2020年09月17日 11:40
  * <p>负责人:fan
  * <p>修改者： fan
