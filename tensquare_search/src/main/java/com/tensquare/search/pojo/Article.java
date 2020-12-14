@@ -21,7 +21,7 @@ import java.io.Serializable;
 public class Article implements Serializable {
 
     @Id
-    private String id;
+    private String _id;
 
     // 是否索引，就是看该域是否能被搜索 index = true
     // 是否分词，代表搜索时候是整体匹配还是单词匹配
@@ -33,4 +33,36 @@ public class Article implements Serializable {
     private String content;
 
     private String state;//审核状态
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }
