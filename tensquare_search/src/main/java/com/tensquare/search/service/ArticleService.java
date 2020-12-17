@@ -37,7 +37,7 @@ public class ArticleService {
      * @param article 文章索引
      **/
     public void save(Article article) {
-        article.set_id(idWorker.nextId() + "");
+        article.setId(idWorker.nextId() + "");
         articleDao.save(article);
     }
 
