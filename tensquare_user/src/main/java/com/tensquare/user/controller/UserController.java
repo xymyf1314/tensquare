@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import util.JwtUtil;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,6 +29,30 @@ public class UserController {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    /**
+     * 登录方法
+     * 日期: 11:03 2020/12/21
+     * 作者: miyf
+     *
+     * @param user 前台输入的user
+     * @return Result
+     **/
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public Result login(@RequestBody User user) {
+        user = userService.login(user.getMobile(), user.getPassword());
+        if (user == null) {
+            return new Result(false, StatusCode.LOGINERROR, "登录失败");
+        }
+        String token = jwtUtil.createJWT(user.getId(), user.getMobile(), "user");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("token", token);
+        map.put("roles", "user");
+        return new Result(true, StatusCode.OK, "登录成功", map);
+    }
 
     /**
      * 发送验证码
@@ -126,7 +152,7 @@ public class UserController {
     }
 
     /**
-     * 删除
+     * 删除 必须有admin角色才可以删除
      *
      * @param id
      */

@@ -9,13 +9,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import util.IdWorker;
+import util.JwtUtil;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -38,6 +41,33 @@ public class UserService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    /**
+     * 登录方法
+     * 日期: 10:58 2020/12/21
+     * 作者: miyf
+     *
+     * @param mobile   手机号
+     * @param password 密码
+     * @return User
+     **/
+    public User login(String mobile, String password) {
+        User user = userDao.findByMobile(mobile);
+        if (user != null && encoder.matches(password, user.getPassword())) {
+            return user;
+        }
+        return null;
+    }
+
 
     /**
      * 查询全部列表
@@ -92,6 +122,8 @@ public class UserService {
      */
     public void add(User user) {
         user.setId(idWorker.nextId() + "");
+        // 密码加密、
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setFollowcount(0);//关注数
         user.setFanscount(0);//粉丝数
         user.setOnline(0L);//在线时长
@@ -116,6 +148,10 @@ public class UserService {
      * @param id
      */
     public void deleteById(String id) {
+        String token = (String) request.getAttribute("claims_admin");
+        if (token == null || "".equals(token)) {
+            throw new RuntimeException("权限不足");
+        }
         userDao.deleteById(id);
     }
 
@@ -192,8 +228,10 @@ public class UserService {
         HashMap<String, String> map = new HashMap<>();
         map.put("mobile", mobile);
         map.put("checkcode", checkcode);
-        rabbitTemplate.convertAndSend("sms", map);
+//        rabbitTemplate.convertAndSend("sms", map);
         // 控制台输出一份（测试用）
         System.out.println("验证码为：" + checkcode);
     }
+
+
 }
