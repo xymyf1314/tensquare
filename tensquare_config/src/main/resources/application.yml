@@ -1,0 +1,20 @@
+server:
+  port: 12000
+spring:
+  application:
+    name: tensquare-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/miyangfan/tensquare_dev.git
+          username:
+          password:
+          skip-ssl-validation: true
+  rabbitmq:
+    host: 192.168.205.128
+management: # 暴露触发消息总线额度地址
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

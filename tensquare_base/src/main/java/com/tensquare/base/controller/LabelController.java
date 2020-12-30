@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -29,6 +30,9 @@ public class LabelController {
     @Autowired
     private LabelService labelService;
 
+    @Autowired
+    private HttpServletRequest request;
+
     /**
      * 查询全部
      * 日期: 14:33 2020/9/17
@@ -38,6 +42,8 @@ public class LabelController {
      **/
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
+        String authorization = request.getHeader("Authorization");
+        System.out.println("authorization:" + authorization);
         return new Result(true, StatusCode.OK, "查询成功", labelService.findAll());
     }
 
